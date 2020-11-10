@@ -217,6 +217,10 @@ func (runner *StandardRunner) execRunCommand(
 	execOpts ExecOpts,
 	cmd *Command,
 ) error {
+	// Empty commands are a no-op
+	if strings.TrimSpace(cmd.Argument) == "" {
+		return nil
+	}
 	execOpts.Command = cmd.Argument
 	return executor.Execute(ctx, execOpts)
 }
